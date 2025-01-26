@@ -1,1 +1,40 @@
-src/.gitkeep
+generar_datos.py
+import pandas as pd
+import numpy as np
+
+# Número de registros
+n = 10000
+
+# Generación de datos aleatorios
+np.random.seed(42)
+
+# Género (con sesgo controlado)
+genero = np.random.choice(['Masculino', 'Femenino'], size=n, p=[0.505, 0.495])
+
+# Nivel socioeconómico (sesgo controlado)
+nivel_socioeconomico = np.random.choice(['Baja', 'Media', 'Alta'], size=n, p=[0.3, 0.4, 0.3])
+
+# Desempeño en materias
+desempeno_matematicas = np.random.normal(75, 10, n).clip(50, 100)
+desempeno_ciencias = np.random.normal(70, 12, n).clip(50, 100)
+desempeno_artes = np.random.normal(80, 8, n).clip(50, 100)
+desempeno_literatura = np.random.normal(76, 9, n).clip(50, 100)
+
+# Intereses (sesgo controlado)
+intereses = np.random.choice(['Tecnología', 'Deportes', 'Ciencias', 'Artes'], size=n, p=[0.4, 0.3, 0.2, 0.1])
+
+# Crear DataFrame
+df = pd.DataFrame({
+    'ID': range(1, n+1),
+    'Género': genero,
+    'Nivel Socioeconómico': nivel_socioeconomico,
+    'Desempeño Matemáticas': desempeno_matematicas,
+    'Desempeño Ciencias': desempeno_ciencias,
+    'Desempeño Artes': desempeno_artes,
+    'Desempeño Literatura': desempeno_literatura,
+    'Intereses': intereses
+})
+
+# Guardar el dataset
+df.to_csv('data/datos_simulados.csv', index=False)
+print("Datos simulados generados con éxito")
